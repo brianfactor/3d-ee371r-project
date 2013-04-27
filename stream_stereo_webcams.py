@@ -18,9 +18,9 @@ if __name__ == '__main__':
     devL = cv2.VideoCapture(CAM_L)
     while cv2.waitKey(50) == -1:   # key is pressed on windows
         _,imgL = devL.read()
-        cv2.imshow('left', imgL)
-            
+        cv2.imshow('left', imgL)            
     devL.release()
+    
     devR = cv2.VideoCapture(CAM_R)
     while cv2.waitKey(50) == -1:
         s,imgR = devR.read()
@@ -54,8 +54,8 @@ if __name__ == '__main__':
             #cv2.cv.moveWindow('right', 512, 0)
             i = i + 1
             if cv2.waitKey(50) != -1:   # key is pressed on windows
-                cv2.imwrite('img/left%d.ppm' % i, imgL)
-                cv2.imwrite('img/right%d.ppm' % i, imgR)
+                cv2.imwrite('img/%dl.jpg' % i, imgL)
+                cv2.imwrite('img/%dr.jpg' % i, imgR)
                 #break
     except KeyboardInterrupt:           # ^C is pressed in terminal
         devL.release()

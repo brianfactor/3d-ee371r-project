@@ -1,0 +1,9 @@
+Brian Morgan, Spring 2013
+Project for EE 371R, Image and Video Processing at the University of Texas
+
+Special thanks to Martin Peris for his helpful script for calibration: http://blog.martinperis.com/2011/01/opencv-stereo-camera-calibration.html
+
+This program is a python script that uses the OpenCV library, opencv.org
+Also useful is MeshLab, meshlab.sourceforge.net
+This program has been calibrated and tuned for two Tech Tools Retro Web Cam. Other hardware will require different calibration.
+
