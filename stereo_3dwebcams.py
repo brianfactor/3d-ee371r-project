@@ -10,6 +10,7 @@ Modified significantly by Brian Morgan, 16 Apr 2013
 
 import numpy as np
 import cv2
+import sys
 
 ply_header = '''ply
 format ascii 1.0
@@ -37,44 +38,45 @@ def write_ply(fn, verts, colors):
 
 if __name__ == '__main__':
     #print 'loading images...'
-    #imgL = cv2.pyrDown( cv2.imread('../gpu/aloeL.jpg') )  # downscale images for faster processing
-    #imgR = cv2.pyrDown( cv2.imread('../gpu/aloeR.jpg') )
     #imgL = cv2.pyrDown( cv2.imread('img/left100.ppm') )  # downscale images for faster processing
     #imgR = cv2.pyrDown( cv2.imread('img/right100.ppm') )
     
-    # image preview (allows it to adjust for brightness
-    devL = cv2.VideoCapture(CAM_L)
-    while cv2.waitKey(50) == -1:   # key is pressed on windows
-        _,imgL = devL.read()
-        cv2.imshow('left', imgL)            
-    devL.release()
+    if len(sys.argv) == 1:
+        # image preview (allows it to adjust for brightness
+        devL = cv2.VideoCapture(CAM_L)
+        while cv2.waitKey(50) == -1:   # key is pressed on windows
+            _,imgL = devL.read()
+            cv2.imshow('left', imgL)            
+        devL.release()
     
-    devR = cv2.VideoCapture(CAM_R)
-    while cv2.waitKey(50) == -1:
-        s,imgR = devR.read()
-        cv2.imshow('right', imgR)
-    devR.release()
+        devR = cv2.VideoCapture(CAM_R)
+        while cv2.waitKey(50) == -1:
+            s,imgR = devR.read()
+            cv2.imshow('right', imgR)
+        devR.release()
     
-    print 'capturing images from webcams'
+        print 'capturing images from webcams'
        
-    devL = cv2.VideoCapture(CAM_L)
-    _,imgL = devL.read()
-    devL.release()
-    devR = cv2.VideoCapture(CAM_R)
-    _,imgR = devR.read()
-    # how to grayscale these?
-    #imgL = cv2.cvtColor(imgL, cv2.cv.CV_RGB2GRAY)
-    #imgR = cv2.cvtColor(imgL, cv2.cv.CV_RGB2GRAY)
-    devR.release()
-    cv2.imshow('left',imgL)
-    cv2.imwrite('l.jpg',imgL)
-    cv2.imshow('right',imgR)
-    cv2.imwrite('r.jpg',imgR)
-    imgRGB = imgL
+        devL = cv2.VideoCapture(CAM_L)
+        _,imgL = devL.read()
+        devL.release()
+        devR = cv2.VideoCapture(CAM_R)
+        _,imgR = devR.read()
+        devR.release()
+        cv2.imshow('left',imgL)
+        cv2.imwrite('l.jpg',imgL)
+        cv2.imshow('right',imgR)
+        cv2.imwrite('r.jpg',imgR)
+        imgRGB = imgL
 
-    imgL = cv2.imread('l.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)  # downscale img
-    imgR = cv2.imread('r.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)
-
+        imgL = cv2.imread('l.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)  # downscale img
+        imgR = cv2.imread('r.jpg', cv2.CV_LOAD_IMAGE_GRAYSCALE)
+        
+    else:
+        imgL = cv2.imread(sys.argv[1])
+        imgR = cv2.imread(sys.argv[2])
+        imgRGB = imgL
+    
     # load camera calibration
 #    Q = np.float32(cv2.cv.Load('cal/Q.xml', cv2.cv.CreateMemStorage()))
 #    print 'Q ='
